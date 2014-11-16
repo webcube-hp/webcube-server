@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('expressBoilerplate');
+var debug = require('debug')('webcube-server');
 var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);

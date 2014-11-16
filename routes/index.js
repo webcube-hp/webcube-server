@@ -77,8 +77,44 @@ router.post('/join', function(req, res) {
 
 router.get('/start', function(req, res) {
   var code = req.query.code;
-  code = (code) ? code : 00000;
-  res.render('start', { title: 'Express', code: code });
+  Game.findOne({code: code}, function(err, game) {
+    if (err) {
+      console.log("Error: finding game error: ", err);
+      return res.send(500);
+    }
+    console.log(game);
+    Worker.findOne({_id: game.worker}, function(err, worker) {
+      if (err) {
+        console.log("Error: finding worker from game error: ", err);
+        return res.send(500);
+      }
+      code = (code) ? code : 00000;
+      res.render('start', { title: 'Express', code: code, ip: worker.ip });
+    })
+  })
+  
 });
+
+router.get('/ended', function(req, res) {
+  var code = req.query.code;
+  var ip = req.query.ip;
+  console.log("ended")
+  request.get("http://" + ip + "/end_game", function(err, response, body) {
+    if (err) {
+      console.log("Error: can't close game on " + ip, err);
+      return res.send(500);
+    }
+    Worker.findOne({ip: ip}, function(err, worker) {
+      worker.isPlaying = false;
+      worker.save(function(err, w) {
+        if (err) {
+          console.log('Error: something is wrong: ', err);
+          return res.send(500);
+        };
+        res.send(200);
+      })
+    })
+  })
+})
 
 module.exports = router;

@@ -8,6 +8,9 @@ block content
   h1.start-game Full Room! Start Playing!
   h1= title
   p Welcome to #{title}
-  p Your game number is: #{code}
+  p Your game number is: #{code} on #{ip}
 
-  a(href="") Start Game!
+  input(type="hidden" value="#{ip}" id="ip")
+  input(type="hidden" value="#{code}" id="code")
+
+  a(href="#" id="start-game") Start Game!
