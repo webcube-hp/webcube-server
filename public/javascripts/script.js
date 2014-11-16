@@ -1,0 +1,3 @@
+$(function() {
+  $('.join-failed').show();
+})

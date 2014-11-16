@@ -1,5 +1,10 @@
 extends layout
 
 block content
+  h1.join-failed Too many people in the game...join or create another!
   h1= title
   p Welcome to #{title}
+  div
+    a(href="/create") Create
+  div
+    a(href="/join") Join
