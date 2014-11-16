@@ -13,8 +13,8 @@ router.get('/', function(req, res) {
 router.get('/start', function(req, res) {
   Worker.find({}, function(err, workers) {
             workers.forEach(function(w) {
-                if (w.state) {
-                  break;
+                if (!w.isPlaying) {
+                  res.json({ip: w.ip});
                 }
             })
         });

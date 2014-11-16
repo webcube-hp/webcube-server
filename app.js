@@ -5,6 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+require('./models/worker.js');
+var mongoose = require('mongoose');
+var Worker = mongoose.model('Worker');
+
+mongoose.connect('mongodb://localhost/webcube-hp');
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 

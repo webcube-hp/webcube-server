@@ -7,7 +7,7 @@ var ObjectId = Schema.Types.ObjectId;
  */
 var WorkerSchema = new Schema({
   ip: String,
-  state: Boolean
+  isPlaying: Boolean
 });
 
 mongoose.model('Worker', WorkerSchema);
